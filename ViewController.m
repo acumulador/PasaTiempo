@@ -9,6 +9,12 @@
 #import "ViewController.h"
 
 @interface ViewController ()
+{
+    NSTimer * timer;
+    int secondsTime;
+    int minuteTime;
+    int tempSecondsTime;
+}
 
 @end
 
@@ -16,8 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-    //probando
+    _timeLabel.text = @"";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -25,4 +30,23 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void) startTime
+{
+    secondsTime ++;
+    tempSecondsTime ++;
+    if (tempSecondsTime>60) {
+        minuteTime = tempSecondsTime/60;
+    }
+//    secondsTime = (int)(secondsTime/60)%60;
+//    minuteTime = (int)secondsTime%60;
+    
+    _timeLabel.text = [NSString stringWithFormat:@"%02i:%02i", minuteTime, secondsTime];
+}
+
+- (IBAction)iniciarTimeButton:(id)sender {
+    timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(startTime) userInfo:nil repeats:YES];
+}
+
+- (IBAction)reiniciarTimeButton:(id)sender {
+}
 @end
